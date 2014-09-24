@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * Routes configuration
+ *
+ * In this file, you set up routes to your controllers and their actions.
+ * Routes are very important mechanism that allows you to freely connect
+ * different urls to chosen controllers and their actions (functions).
+ *
+ * PHP 5
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       app.Config
+ * @since         CakePHP(tm) v 0.2.9
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/**
+ * Here, we are connecting '/' (base path) to controller called 'Pages',
+ * its action called 'display', and we pass a param to select the view file
+ * to use (in this case, /app/View/Pages/home.ctp)...
+ */ 
+Router::connect('/', array('controller' => 'pages', 'action' => 'home'));
+Router::connect('/admin', array('controller' => 'users', 'action' => 'login', 'admin' => true));
+// Router::connect('/contact-us', array('controller' => 'pages', 'action' => 'view', 'slug' => "contact-us"));
+Router::connect('/page/:slug', array('controller' => 'pages', 'action' => 'view'), array('pass' => array('slug')));
+
+Router::connect('/events/confirm_reservation', array('controller' => 'events', 'action' => 'confirm_reservation'));
+Router::connect('/events/process_order', array('controller' => 'events', 'action' => 'process_order'));
+Router::connect('/events/payment', array('controller' => 'events', 'action' => 'payment'));
+Router::connect('/events/paypal', array('controller' => 'events', 'action' => 'paypal'));
+Router::connect('/events/paypalAccount', array('controller' => 'events', 'action' => 'paypal_account'));
+Router::connect('/events/expressCheckout', array('controller' => 'events', 'action' => 'expressCheckout'));
+
+Router::connect('/events/:slug', array('controller' => 'events', 'action' => 'index'), array('pass' => array('slug')));
+Router::connect('/signature-events/:slug', array('controller' => 'events', 'action' => 'view'), array('pass' => array('slug')));
+Router::connect('/other-events/:slug', array('controller' => 'events', 'action' => 'view_other'), array('pass' => array('slug')));
+Router::connect('/events/rooms/:slug', array('controller' => 'events', 'action' => 'room_details'), array('pass' => array('slug')));
+Router::connect('/events/videos/:slug', array('controller' => 'events', 'action' => 'view_video'), array('pass' => array('slug')));
+Router::connect('/events/pdf/:slug', array('controller' => 'events', 'action' => 'downloadPdf'), array('pass' => array('slug')));
+Router::connect('/cruises/:category', array('controller' => 'cruises', 'action' => 'index'), array('pass' => array('category')));
+Router::connect('/cruises/country/:country', array('controller' => 'cruises', 'action' => 'country'), array('pass' => array('country')));
+Router::connect('/cruises/:category/:slug', array('controller' => 'cruises', 'action' => 'view'), array('pass' => array('category','slug')));
+Router::connect('/cruises/videos/:slug', array('controller' => 'cruises', 'action' => 'view_video'), array('pass' => array('slug')));
+Router::connect('/resort/:category', array('controller' => 'resorts', 'action' => 'index'), array('pass' => array('category')));
+Router::connect('/resorts/country/:country', array('controller' => 'resorts', 'action' => 'country'), array('pass' => array('country')));
+Router::connect('/resort/:category/:slug', array('controller' => 'resorts', 'action' => 'view'), array('pass' => array('category','slug')));
+Router::connect('/resorts/videos/:slug', array('controller' => 'resorts', 'action' => 'view_video'), array('pass' => array('slug')));
+Router::connect('/resorts/view-promos/:slug', array('controller' => 'resorts', 'action' => 'view_promos'), array('pass' => array('slug')));
+Router::connect('/gallery/:slug', array('controller' => 'galleries', 'action' => 'view'), array('pass' => array('slug')));
+Router::connect('/gallery', array('controller' => 'galleries', 'action' => 'index'));
+Router::connect('/newsletter/*', array('controller' => 'newsletterSubscribers'));
+Router::connect('/faq/*', array('controller' => 'faqs'));
+//Router::connect('/resorts/category/:slug', array('controller' => 'resorts', 'action' => 'index' ), array('pass' => array('slug')));
+
+/**
+ * ...and connect the rest of 'Pages' controller's urls.
+ */
+//Router::connect('/pages/home', array('controller' => 'pages', 'action' => 'home'));
+
+/**
+ * Load all plugin routes. See the CakePlugin documentation on
+ * how to customize the loading of plugin routes.
+ */
+CakePlugin::routes();
+
+/**
+ * Load the CakePHP default routes. Only remove this if you do not want to use
+ * the built-in default routes.
+ */
+require CAKE . 'Config' . DS . 'routes.php';
